@@ -1,0 +1,89 @@
+﻿@model Spicy_demo.Models.View_Models.MenuItemViewModel
+@using Spicy_demo.Extensions;
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-info">
+    Create MenuItem
+</h2>
+
+<form method="post" enctype="multipart/form-data">
+
+    <div class="border backgroundWhite">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="MenuItem.Name" class="col-form-label">MenuItem</label>
+            </div>
+            <div class="col-4">
+                <input asp-for="MenuItem.Name" class="form-control" />
+            </div>
+            <span asp-validation-for="MenuItem.Name" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="MenuItem.Description" class="col-form-label">Description</label>
+            </div>
+            <div class="col-4">
+                <input asp-for="MenuItem.Description" class="form-control" />
+            </div>
+            <span asp-validation-for="MenuItem.Description" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="MenuItem.Price" class="col-form-label">Price</label>
+            </div>
+            <div class="col-4">
+                <input asp-for="MenuItem.Price" class="form-control" />
+            </div>
+            <span asp-validation-for="MenuItem.Price" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="MenuItem.Image" class="col-form-label">Image</label>
+            </div>
+            <div class="col-4">
+                <input type="file" asp-for="MenuItem.Image" name="files" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="MenuItem.CategoryId" class="col-form-label">Category</label>
+            </div>
+            <div class="col-4">
+                <select id="ddlCategory" asp-for="MenuItem.CategoryId" asp-items="Model.Categories.ToSelectectedItem(Model.MenuItem.CategoryId)" class="form-control"></select>
+            </div>
+            <span asp-validation-for="MenuItem.CategoryId" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="MenuItem.SubCategoryId" class="col-form-label">SubCategory</label>
+            </div>
+            <div class="col-4">
+                <select asp-for="@Model.MenuItem.SubCategoryId" name="SubCategoryId" id="SubCategoryId" asp-items="Model.SubCategories.ToSelectectedItem(Model.MenuItem.SubCategoryId)" class="form-control"></select>
+            </div>
+            <span asp-validation-for="MenuItem.SubCategoryId" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="MenuItem.Spicyness" class="col-form-label">Spicyness</label>
+            </div>
+            <div class="col-4">
+                <select id="ddlCategory" asp-for="MenuItem.Spicyness" asp-items="Html.GetEnumSelectList<MenuItem.ESpicy>()" class="form-control"></select>
+            </div>
+            <span asp-validation-for="MenuItem.SubCategoryId" class="text-danger"></span>
+        </div>
+        <div class="form-group row">
+            <div class="offset-2 col-4 row">
+                <div class="col-6">
+                    <input type="submit" class=" col-12 btn btn-info" value="Create" />
+                </div>
+                <div class="col-6">
+                    <a asp-action="index" class="col-12 btn btn-success">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

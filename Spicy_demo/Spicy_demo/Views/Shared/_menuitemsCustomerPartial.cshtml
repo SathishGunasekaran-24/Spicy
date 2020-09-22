@@ -1,0 +1,44 @@
+﻿@model IEnumerable<MenuItem>
+@if (Model.Count() > 0)
+{
+    <div class="container border">
+        <h2 class="text-success"> @Model.FirstOrDefault().Category.Name</h2>
+        @foreach (var item in Model)
+        {
+            <div class="col-12 row border border-info rounded" style="margin-bottom:10px; margin-top:10px; padding:10px">
+                <div class="col-3 mt-1 mb-1">
+                    <img src="@item.Image" width="99%" style="border-radius:5px; border: 1px solid #bbb9b9;" />
+                </div>
+                <div class="col-9">
+                    <div class="mt-1 row">
+                        <div class="col-4">
+                            <label class="text-primary" style="font-size:21px;color:maroon">@item.Name</label>
+                            @if (item.Spicyness == "1")
+                            {
+                                <img srcset="/images/mild.png" title="Mild" />
+                            }
+                            @if (item.Spicyness == "2")
+                            {
+                                <img srcset="/images/spicy.png" title="Spicy" />
+                            }
+                            @if (item.Spicyness == "3")
+                            {
+                                <img srcset="/images/veryspicy.png" title="Very Spicy" />
+                            }
+                        </div>
+                        <div class="offset-4 col-4" style="color:maroon">
+                            <h4>$@item.Price</h4>
+                        </div>
+                    </div>
+                    <div class="row col-12 text-justify d-none d-md-block">
+                        <p>@Html.Raw(item.Description)</p>
+                    </div>
+                    <div class="col-md-3 col-sm-12 offset-md-9 text-center">
+                        <a asp-action="Details" class="btn btn-success form-control" asp-route-id="@item.Id">Details</a>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="p-4"></div>
+    </div>
+}

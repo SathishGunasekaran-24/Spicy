@@ -1,0 +1,51 @@
+﻿@model Spicy_demo.Models.View_Models.IndexViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+<br />
+@if (Model.Coupon.Count() > 0)
+{
+    <div class="border">
+        <div class="carousel" data-ride="carousel" data-interval="2500">
+            @for (int i = 0; i < Model.Coupon.Count(); i++)
+            {
+                if (i == 0)
+                {
+                    @if (Model.Coupon.ToList()[i].Picture != null)
+                    {
+                        <div class="carousel-item active">
+                            @{
+                                var base64 = Model.Coupon.ToList()[i].Picture;
+                                var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+                            }
+                            <img src="@imgsrc" height="50px" class="d-block w-100" />
+                        </div>
+                    }
+
+                }
+                else
+                {
+                    @if (Model.Coupon.ToList()[i].Picture != null)
+                    {
+                        <div class="carousel-item">
+                            @{
+                                var base64 = Convert.ToBase64String(Model.Coupon.ToList()[i].Picture);
+                                var imgsrc = string.Format("data:image/jpg;base64,{0}", base64);
+                            }
+
+                            <img src="@imgsrc" height="50px" class="d-block w-100" />
+                        </div>
+                    }
+                }
+            }
+        </div>
+    </div>
+}
+<br />
+<br />
+<div class="backgroundWhite container">
+        @foreach (var item in Model.Category)
+        {
+                <partial name="_menuitemsCustomerPartial" model="@Model.MenuItem.Where(c=>c.Category.Name==item.Name)" />
+        }
+</div>

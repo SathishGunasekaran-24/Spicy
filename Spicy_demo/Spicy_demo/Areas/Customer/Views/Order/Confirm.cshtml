@@ -1,0 +1,129 @@
+﻿@model Spicy_demo.Models.View_Models.OrderDetailsViewModel
+@{
+    ViewData["Title"] = "Confirm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form method="post">
+    @if (Model.listOrderDetails.Count > 0)
+    {
+        <br />
+        <input type="hidden" id="userId" asp-for="@Model.orderHeader.ApplicationUser" />
+        <div class="backgroundWhiteBorder10Padding">
+            <div class="container">
+                <div class="card">
+                    <div class="card-header bg-dark text-light ml-0 row container">
+                        <div class="col-6">
+                            Order Confirmed
+                        </div>
+                        <div class="col-6 text-right">
+                            <a asp-area="Customer" asp-controller="Home" asp-action="Index" class="btn btn-success"> New Order</a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="container">
+                            <div class="row ">
+                                <div class="col-6 ">
+                                    <h4 class="text-info"> Pickup Details</h4>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <label asp-for="@Model.orderHeader.PickUpName" id="txtName" class="form-check-label"> Name</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input asp-for="@Model.orderHeader.PickUpName" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <label asp-for="@Model.orderHeader.PhoneNumber" id="txtPhone" class="form-check-label"> Phone Number</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input asp-for="@Model.orderHeader.PhoneNumber" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <label asp-for="@Model.orderHeader.PickUpDate" class="form-check-label"> PickUp Date</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <input asp-for="@Model.orderHeader.PickUpDate" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <label asp-for="@Model.orderHeader.Comments" class="form-check-label"> Additional Instructions</label>
+                                        </div>
+                                        <div class="col-8">
+                                            <textarea asp-for="@Model.orderHeader.Comments" style="height:100px;" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <h4 class="text-info">Order Summary</h4>
+                                    <ul class="list-group">
+                                        @{var total = 0.0; }
+                                        @foreach (var item in Model.listOrderDetails)
+                                        {
+                                            <li class="list-group-item d-flex justify-content-between">
+                                                <div>
+                                                    <h6 class="my-0">@item.Name</h6>
+                                                    <small class="text-muted">Quantity: @item.Count</small>
+                                                </div>
+                                                <span class="text-muted">$@(item.Price * item.Count)</span>
+                                                @{ total += (item.Price * item.Count); }
+                                            </li>
+                                        }
+                                        @if (Model.orderHeader.CouponCode != null)
+                                        {
+                                            <li class="list-group-item d-flex justify-content-between">
+                                                <div class="text-success">
+                                                    <h6 class="my-0">Promo Code</h6>
+                                                    <small class="text-success">@Model.orderHeader.CouponCode</small>
+                                                </div>
+                                                <span class="text-success">-$@(total - Model.orderHeader.OrderTotal)</span>
+                                            </li>
+                                        }
+                                        <li class="list-group-item d-flex justify-content-between bg-light">
+                                            <small class="text-info">Total (USD)</small>
+                                            <strong class="text-info">$@(Model.orderHeader.OrderTotal)</strong>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="col-12 col-lg-4 offset-lg-8 col-md-6 offset-md-6">
+                            <button type="submit" id="btnPlaceOrder" onclick="return validateInput()" value="Place Order" class="btn btn-success disabled form-control">Submitted</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <h2> No items here </h2>
+    }
+</form>
+
+@section Scripts{
+    <script>
+        function validateInput() {
+            var name = document.getElementById("txtName").value;
+            var phone = document.getElementById("txtPhone").value;
+            if (name.toString().length == 0) {
+                alert("Please enter pickup name")
+                return false;
+            }
+            else if (phone.toString().length == 0) {
+                alert("Please enter a phone number")
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
+    </script>
+}

@@ -1,0 +1,38 @@
+﻿@model Spicy_demo.Models.Category
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-info">
+    Edit Category
+</h2>
+<form method="post" asp-action="Edit">
+    <div class="border backgroundWhite">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-6">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Name" class="col-form-label">Category</label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Name" class="form-control" />
+                </div>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="offset-4 row">
+                    <div class="col-4">
+                        <input type="submit" class="btn btn-info" value="Update" />
+                    </div>
+                    <div class="col-8">
+                        <a asp-action="index" class="btn btn-success">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
+

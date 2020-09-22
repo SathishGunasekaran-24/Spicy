@@ -1,0 +1,28 @@
+﻿@model Category
+@{
+    ViewData["Title"] = "Category";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2 class="text-info">
+    Create Category
+</h2>
+<form method="post" asp-action="Create">
+    <div class="border backgroundWhite">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-6">
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Name" class="col-form-label">Create Category</label>
+                </div>
+                <div class="col-8">
+                   <input asp-for="Name" class="form-control"/>
+                </div>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <partial name="_Createandbacktolistbuttons" />
+            </div>
+        </div>
+
+    </div>
+</form>

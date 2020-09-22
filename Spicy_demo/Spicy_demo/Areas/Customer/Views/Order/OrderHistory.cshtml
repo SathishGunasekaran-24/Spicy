@@ -1,0 +1,74 @@
+﻿@model IEnumerable<OrderHeader>
+@{
+    ViewData["Title"] = "OrderHistory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<br />
+<div class="border backgroundWhite">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info"> OrderHistory </h2>
+        </div>
+    </div>
+    <br />
+    @if (Model.Count() > 0)
+    {
+        <div>
+            <table class="table table-striped border">
+                <tr class="table-secondary">
+
+                    <th>
+                        Id
+                    </th>
+                    <th>
+                        Pickup Name
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        Pickup Time
+                    </th>
+                    <th>
+                        Order Total
+                    </th>
+                    <th>
+                    </th>
+                </tr>
+                @foreach (var item in Model)
+                {
+            <tr>
+                <th class="text-nowrap" style="font-weight:normal">
+                    @Html.DisplayFor(m => item.Id)
+                </th>
+                <th class="text-nowrap" style="font-weight:normal">
+                    @Html.DisplayFor(m => item.PickUpName)
+                </th>
+                <th style="font-weight:normal">
+                    @Html.DisplayFor(m => item.ApplicationUser.Email)
+                </th>
+                <th style="font-weight:normal">
+                    @Html.DisplayFor(m => item.PickUpTime)
+                </th>
+                <th style="font-weight:normal">
+                    @Html.DisplayFor(m => item.OrderTotal)
+                </th>
+                <th>
+                    <a class="btn btn-primary" asp-controller="Order" asp-action="Confirm" asp-route-id="@item.Id"> Edit</a>
+                </th>
+            </tr>
+                }
+            </table>
+
+        </div>
+    }
+    else
+    {
+        <h3>No Menu Items here....</h3>
+    }
+</div>
+
+
+
